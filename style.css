@@ -1,0 +1,61 @@
+/* import google fonts Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat",sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: grey;
+}
+
+.container{
+    background-color: white;
+    border-radius: 10px;
+    max-width: 452px;
+    flex-grow: 1;
+    box-shadow: 0 10px 20px black(0,0,0,0.1);
+}
+.search-section {
+    display: flex;
+    padding: 25px;
+}
+.search-section  .input-wrapper{
+    height: 54px;
+    width: 100%;
+    position: relative;
+}
+.search-section  .input-wrapper span{
+    position: absolute;
+    top: 50%;
+    left: 17%;
+    transform: translateY(-50%);
+}
+.search-section .search-input {
+height: 100%;
+width: 100%;
+outline: none;
+font-size: 1rem;
+font-weight: 500;
+padding: 0 20px 0 50px;
+border-radius: 6px;
+border: 2px solid rgb(172, 168, 172);
+}
+.hourly .weather-list{
+    display: flex;
+}
+.icon1{
+    width: 60px;
+    height: auto;
+}
+.hourly .weather-item .weather-icon{
+    width: 28px;
+    aspect-ratio: 1;
+}

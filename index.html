@@ -6,19 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- ลิ้งค์ google font สำหรับ icon -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=my_location" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container1">
-        <div class="search">
+    <div class="container">
+        <!--Search section ค้นหาเมือง-->
+        <div class="search-section">
             <div class="input-wrapper">
-                <span class="material-symbols-outlined">search</span>
+                <span class="material-symbols-rounded">search</span>
                 <input type="search" placeholder="Enter a city name" class="search-input">
             </div>
             <button class="location">
-                <span class="material-symbols-outlined">my location</span>
+                <span class="material-symbols-outlined">my_location</span>
             </button>
+        </div>
+         
+        <!--Weather section สภาพอากาศ-->
+        <div class="weather">
+            <!-- cloudy มีเมฆมาก -->
+            <div class="cloudy">
+                <!-- weather-list -->
+                <img class="icon1" src="icon/cloudy.png" >
+                <h2 class="temparature">20 <span>°C</span></h2>
+                <p class="description">Party cloudy "มีเมฆมาก"</p>
+            </div>
+            <!-- Hourly weather list -->
+            <div class="hourly">
+                <ul class="weather-list">
+                    <li class="weather-item">
+                        <p class="time"> "00:00</p>
+                        <img src="icon/cloudy.png" class="weather-icon">
+                        <p class="temparature">20°C</p>
+                    </li>
+                    <li class="weather-item">
+                        <p class="time"> "00:00</p>
+                        <img src="icon/cloudy.png" class="weather-icon">
+                        <p class="temparature">20°C</p>
+                    </li>
+                    <li class="weather-item">
+                        <p class="time"> "00:00</p>
+                        <img src="icon/cloudy.png" class="weather-icon">
+                        <p class="temparature">20°C</p>
+                    </li>
+                    <li class="weather-item">
+                        <p class="time"> "00:00</p>
+                        <img src="icon/cloudy.png" class="weather-icon">
+                        <p class="temparature">20°C</p>
+                    </li>
+                    <li class="weather-item">
+                        <p class="time"> "00:00</p>
+                        <img src="icon/cloudy.png" class="weather-icon">
+                        <p class="temparature">20°C</p>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </body>
