@@ -1,5 +1,7 @@
 const searchInput = document.querySelector(".search-input");
+const locationButton = document.querySelector(".location");
 const currentWeatherDiv = document.querySelector(".cloudy");
+const hourlyWeatherDiv = document.querySelector(".hourly .weather-list");
 
 
 const API_KEY = "2ed676f67d4d4571a65151029241411";  
@@ -25,24 +27,25 @@ const displayHouryForecast = (hourlyData) => {
     const forecastTime = new Date(time).getTime();
     return forecastTime >= currentHour && forecastTime <= next24Hours
    })
-
-   const hourlyWeatherHTML = next24HoursData.map(item => {
+   
+   // Generate html fr hourly forecast and display
+   hourlyWeatherDiv.innerHTML= next24HoursData.map(item => {
     const temperature = Math.floor(item.temp_c);
-    const time = item.time;
+    const time = item.time.split(" ")[1].substring(0, 5);
     const weatherIcon = Object.keys(weatherCode).find(icon => weatherCode[icon].includes(item.condition.code));
 
     return `<li class="weather-item">
     <p class="time">${time}</p>
     <img src="icons/${weatherIcon}.png" class="weather-icon" alt="weather icon">
     <p class="temperature">${temperature}°C</p>
-    </li>`;
+ </li>`;
    }).join("");
 
    console.log(hourlyWeatherHTML);
 }
-const getWeatherDetails = async (cityName) => {
-   const API_URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityName}&days=2`;
 
+const getWeatherDetails = async (API_URL) => {
+   window.innerWidth <= 768 && searchInput.blur();
    try {
      const response = await fetch(API_URL);
      const data = await response.json();
@@ -70,21 +73,40 @@ const getWeatherDetails = async (cityName) => {
      const combinedHourlyData =[...data.forecast.forecastday[0].hour,...data.forecast.forecastday[1].hour];
 
      displayHouryForecast(combinedHourlyData);
+
+     searchInput.value = data.location.name;
    } catch (error) {
      console.log(data.current.condition.code);
      console.log(weatherIcon);
+     console.log(data.location.name); 
      console.log(error);
      currentWeatherDiv.querySelector(".description").innerText = "Failed to fetch data. Please try again later.";
    }
 }
 
+//set up the weather request for a spacific city
+const setupWeatherRequest = (cityName) =>{
+  const API_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityName}&days=2`;
+  getWeatherDetails(API_URL);
+}
 // Handle search input
 searchInput.addEventListener("keyup", (e) => {
     const cityName = searchInput.value.trim();
 
     if (e.key === "Enter" && cityName) {
         console.log(cityName);
-        getWeatherDetails(cityName);
+        setupWeatherRequest(cityName);
     }
 });
 
+// Get user  location
+locationButton.addEventListener("click", () => {
+  navigator.geolocation.getCurrentPosition(position => {
+    const {latitude , longitude} = position.coords;
+    const API_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${latitude},${longitude}&days=2`;
+    getWeatherDetails(API_URL);
+
+  }, error => {
+      alert("Location access denied.")
+  });
+})
