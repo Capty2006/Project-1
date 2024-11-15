@@ -6,7 +6,7 @@ const hourlyWeatherDiv = document.querySelector(".hourly .weather-list");
 
 const API_KEY = "2ed676f67d4d4571a65151029241411";  
 
-// Weather codes for conditions
+// Weather codes for conditions รหัภาพไอคอน และรหัสสภาพอากาศ
 const weatherCode = {
   clear: [1000],
   clouds: [1003,1006,1009],
@@ -22,13 +22,13 @@ const displayHouryForecast = (hourlyData) => {
   const currentHour = new Date().setMinutes(0,0,0);
   const next24Hours = currentHour + 24 * 60 * 60 * 1000;
 
-  //filter the hourly data include the next 24 hours
+  //filter the hourly data include the next 24 hours กรองข้อมูลรายชั่วโมงและ24ชม ถัดไป
    const next24HoursData = hourlyData.filter(({time}) => {
     const forecastTime = new Date(time).getTime();
     return forecastTime >= currentHour && forecastTime <= next24Hours
    })
    
-   // Generate html fr hourly forecast and display
+   // Generate html fr hourly forecast and display   จากการคาดการณ์และแสดงผลรายชั่วโมง
    hourlyWeatherDiv.innerHTML= next24HoursData.map(item => {
     const temperature = Math.floor(item.temp_c);
     const time = item.time.split(" ")[1].substring(0, 5);
@@ -50,7 +50,7 @@ const getWeatherDetails = async (API_URL) => {
      const response = await fetch(API_URL);
      const data = await response.json();
 
-     // Check if the data is valid
+     // Check if the data is valid ตรวจสอบข้อมูลที่ผู้ใช้ป้อนหาความถูกต้อง
      if (!data || !data.current || !data.current.condition) {
        console.log("Weather data is unavailable for this city.");
        currentWeatherDiv.querySelector(".description").innerText = "City not found. Please try again.";
@@ -61,15 +61,15 @@ const getWeatherDetails = async (API_URL) => {
      const temperature = Math.floor(data.current.temp_c);
      const description = data.current.condition.text;
      
-     // Get the weather icon based on the condition code
+     // Get the weather icon based on the condition code รหัวไอคอนรูปภาพสภาพอากาศ นามสกุล.png
      const weatherIcon = Object.keys(weatherCode).find(icon => weatherCode[icon].includes(data.current.condition.code));
 
-     // Update  the weather data display
+     // Update  the weather data display แสดงข้อมูลสภาพอากาศที่อัพเดท
      currentWeatherDiv.querySelector(".weather-icon").src = `icons/${weatherIcon}.png`;
      currentWeatherDiv.querySelector(".temperature").innerHTML = `${temperature}<span>°C</span>`;
      currentWeatherDiv.querySelector(".description").innerText = description;
      
-     // hourly data from today and tomorrow
+     // hourly data from today and tomorrow รายการข้อมูลรายชัวโมง วันนี้ถึงพรุ่งนี้
      const combinedHourlyData =[...data.forecast.forecastday[0].hour,...data.forecast.forecastday[1].hour];
 
      displayHouryForecast(combinedHourlyData);
@@ -84,12 +84,12 @@ const getWeatherDetails = async (API_URL) => {
    }
 }
 
-//set up the weather request for a spacific city
+//set up the weather request for a spacific city คำขอสภาพอากาศเมืองใหญ่
 const setupWeatherRequest = (cityName) =>{
   const API_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityName}&days=2`;
   getWeatherDetails(API_URL);
 }
-// Handle search input
+// Handle search input การค้นหา
 searchInput.addEventListener("keyup", (e) => {
     const cityName = searchInput.value.trim();
 
@@ -99,7 +99,7 @@ searchInput.addEventListener("keyup", (e) => {
     }
 });
 
-// Get user  location
+// Get user  location รับตำแหน่งผู้ใช้
 locationButton.addEventListener("click", () => {
   navigator.geolocation.getCurrentPosition(position => {
     const {latitude , longitude} = position.coords;
