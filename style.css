@@ -100,19 +100,19 @@ transition: 0.3s ease;
     padding: 20px 0 50px;
     flex-direction: column;
 }
-
+/* icon ตัวใหญ่ */
 .cloudy .weather-icon{
-    width: 140px;
+    width: 180px;
     aspect-ratio: 1;
 }
 
-.cloudy .temparature{
+.cloudy .tempareture{
     font-size: 3.38rem;
     margin: 23px 0;
     display: flex;
 }
 
-.cloudy .temparature span{
+.cloudy .tempareture span{
     font-size: 1.56rem;
     font-weight: 500;
     margin: 5px 0 0 2px;
